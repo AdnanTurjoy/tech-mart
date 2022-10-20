@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { auth, fs } from "../Auth/firebaseConfig";
 import Product from "./Product";
 import ReactLoading from "react-loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { cartContext } from "../App";
 import Search from "../components/Search/Search";
 
@@ -59,10 +59,28 @@ function Products({ getTotalCartAddedNumber }) {
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
-  //console.log(cart);
+
+  const category= [...new Set( products.map(obj => obj.category)) ];
+  const handleCategory=(data)=>{
+    setSearchedProduct( products.filter((product)=>product.category===data))
+    
+  }
   return (
     <>
       <Search handleSearch={handleSearch} />
+      
+      <div className="md:flex mx-auto flex-wrap justify-center">
+      
+    <p className="bg-slate-400 rounded-md">All Categories: </p>
+      {category && 
+     
+       category.map((data)=>{
+        return <button onClick={()=>handleCategory(data)} className="px-3  hover:bg-slate-700 hover:underline hover:text-white hover:rounded-md"># {data}</button> 
+       })
+
+      }
+      </div>
+      
       <div className="m-auto content-center">
         {loading && (
           <ReactLoading

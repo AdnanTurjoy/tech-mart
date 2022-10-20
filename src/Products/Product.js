@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Product({ products, addToCart }) {
   return (
     
-    <div className="container grid grid-cols-4  gap-4 p-6">
+    <div className="container gap-4 p-6 flex mx-auto flex-wrap justify-center">
       
        
       {products &&

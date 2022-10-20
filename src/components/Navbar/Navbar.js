@@ -35,7 +35,7 @@ function Navbar() {
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <Link
           to="/"
-          class="text-xl tracking-wider text-rose-800 font-semibold font "
+          class=" text-5xl tracking-wider text-rose-800 font-semibold font "
         >
           Tech Mart
         </Link>
