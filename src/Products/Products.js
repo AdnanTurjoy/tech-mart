@@ -14,21 +14,7 @@ function Products({ getTotalCartAddedNumber }) {
   const [products, setProducts] = useState([]);
   const [SearchedProduct,setSearchedProduct] = useState([]);
   const [cart, setCart] = useState([]);
-  // const [Product,setProduct] = useState({})
-  // getting current user uid
-  // function GetUserUid() {
-  //   const [uid, setUid] = useState(null);
-  //   useEffect(() => {
-  //     auth.onAuthStateChanged((user) => {
-  //       if (user) {
-  //         setUid(user.uid);
-  //       }
-  //     });
-  //   }, []);
-  //   return uid;
-  // }
 
-  // const uid = GetUserUid();
 
   // getting products function
   const getProducts = async () => {
