@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+import { FcGoogle } from "react-icons/fc";
+import { userContext } from "../App";
 function Login(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const provider = new GoogleAuthProvider();
+ const [loggedInUser,setLoggedInUser] =useContext(userContext);
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const { displayName, email } = result.user;
+        const signInGoogleUser={
+          name: displayName,
+          email,
+        }
+        setLoggedInUser(signInGoogleUser);
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
   const handleLogin = (e) => {
     e.preventDefault();
     auth
@@ -14,9 +46,7 @@ function Login(props) {
         setEmail("");
         setPassword("");
 
-     
-          navigate("/");
-       
+        navigate("/");
       })
       .catch((error) => console.log(error.message));
   };
@@ -67,29 +97,6 @@ function Login(props) {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="terms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    required=""
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label className="font-light text-gray-500 dark:text-gray-300">
-                    I accept the{" "}
-                    <a
-                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      href="#"
-                    >
-                      Terms and Conditions
-                    </a>
-                  </label>
-                </div>
-              </div>
               <button
                 type="submit"
                 className="w-full text-white bg-rose-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -105,6 +112,10 @@ function Login(props) {
                   Sign Up Here
                 </Link>
               </p>
+              <p>Google Sign In</p>{" "}
+              <button onClick={handleGoogleLogin}>
+                <FcGoogle className="h-10 w-10 mx-auto" />
+              </button>
             </form>
           </div>
         </div>

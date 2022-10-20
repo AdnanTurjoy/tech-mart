@@ -10,14 +10,17 @@ import Navbar from "./components/Navbar/Navbar";
 import Cart from "./Pages/Cart/Cart";
 import SingleProduct from "./Products/SingleProduct";
 export const cartContext = createContext();
+export const userContext= createContext();
 function App() {
   const [selectedCart, setSelelctedCart] = useState([]);
+  const [loggedInUser,setLoggedInUser]=useState({});
   const [cartNumber, setCartNumber] = useState();
   const getSelectedCart = (cart) => {
     setSelelctedCart(cart);
   };
   console.log(cartNumber);
   return (
+    <userContext.Provider value={[loggedInUser,setLoggedInUser]}>
     <cartContext.Provider
       value={{ selectedCart, getSelectedCart, setCartNumber, cartNumber }}
     >
@@ -33,6 +36,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </cartContext.Provider>
+    </userContext.Provider>
   );
 }
 

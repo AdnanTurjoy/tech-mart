@@ -14,15 +14,20 @@ function SingleProduct(props) {
         />
         <div className="flex pt-6">
           <div className="px-5 pb-5">
-            <span className="text-3xl pr-2 font-bold  text-gray-900 dark:text-white">
-              {location.state.price}৳
-            </span>
+           
             <br></br>
             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
               {location.state.title}
             </h5>
+            <h1 className="font-bold">Description: </h1>
             <p>{location.state.description}</p>
-
+            <div className="my-4">
+        
+            <p className="">Category: #{location.state.category}</p>
+            </div>
+            <span className="text-3xl pr-2 font-bold  text-gray-900 dark:text-white">
+              {location.state.price}৳
+            </span>
             <div className="flex  justify-between items-end">
               <Link
                 to="/"
