@@ -5,8 +5,8 @@ function SingleProduct(props) {
   const location = useLocation();
   const navigate = useNavigate();
   return (
-    <div>
-      <div className="flex w-full align-center content-center ">
+   
+      <div className="md:flex justify-center dark:bg-gray-800 dark:border-gray-700">
         <img
           className="p-8 rounded-t-lg hover:-translate-y-1 hover:scale-110"
           src={location.state.image}
@@ -39,7 +39,7 @@ function SingleProduct(props) {
           </div>
         </div>
       </div>
-    </div>
+   
   );
 }
 

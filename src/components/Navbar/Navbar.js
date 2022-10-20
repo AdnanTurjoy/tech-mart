@@ -7,6 +7,7 @@ import { auth } from "../../Auth/firebaseConfig";
 import { GetCurrentUser } from "../../Auth/GetCurrentUser";
 
 function Navbar() {
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
   const user = GetCurrentUser();
   const { cartNumber } = useContext(cartContext);
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
@@ -14,16 +15,13 @@ function Navbar() {
 
   console.log(user);
   useEffect(() => {}, [user]);
-   
+
   const handleLogOut = () => {
     auth
       .signOut(auth)
       .then(() => {
         navigate("/");
         loggedInUser.name = "";
-        
-        
-       
       })
       .catch((error) => {
         // An error happened.
@@ -31,7 +29,7 @@ function Navbar() {
   };
 
   return (
-    <nav class="flex items-center justify-between flex-wrap bg-white p-6 sticky top-0 shadow-md">
+    <nav class="flex items-center justify-between flex-wrap bg-white p-6 lg:sticky lg:top-0 shadow-md">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <Link
           to="/"
@@ -41,7 +39,10 @@ function Navbar() {
         </Link>
       </div>
       <div class="block lg:hidden">
-        <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <button
+          class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
+          onClick={() => setNavbarOpen(!navbarOpen)}
+        >
           <svg
             class="fill-current h-3 w-3"
             viewBox="0 0 20 20"
@@ -52,7 +53,8 @@ function Navbar() {
           </svg>
         </button>
       </div>
-      <div class="justify-end w-full block flex-grow lg:flex lg:items-center  lg:w-auto">
+      <div className={"lg:flex flex-grow items-center" +
+              (navbarOpen ? " flex" : " hidden")}>
         <div class="text-sm lg:flex-grow">
           <Link
             to="/about"
