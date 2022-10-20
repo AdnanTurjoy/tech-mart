@@ -11,15 +11,19 @@ function Navbar() {
   const { cartNumber } = useContext(cartContext);
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
   const navigate = useNavigate();
-  console.log(loggedInUser.email);
-  useEffect(() => {}, [user]);
 
+  console.log(user);
+  useEffect(() => {}, [user]);
+   
   const handleLogOut = () => {
     auth
       .signOut(auth)
       .then(() => {
-        loggedInUser.name = "";
         navigate("/");
+        loggedInUser.name = "";
+        
+        
+       
       })
       .catch((error) => {
         // An error happened.

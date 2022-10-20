@@ -32,10 +32,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route element={<PrivateRoutes loggedInUser={loggedInUser} />}>
+            {/* <Route element={<PrivateRoutes loggedInUser={loggedInUser} />}> */}
               <Route path="/product/:id" element={<SingleProduct />} />
               <Route path="/cart" element={<Cart />} />
-            </Route>
+            {/* </Route> */}
             <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>
