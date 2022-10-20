@@ -41,7 +41,7 @@ function Product({ products, addToCart }) {
 
                   <button
                     onClick={() => addToCart(product)}
-                    className=" bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase"
+                    className=" bg-red-500 rounded-md hover:bg-red-600 px-4 py-1 text-sm text-white uppercase"
                   >
                     Add to cart
                   </button>

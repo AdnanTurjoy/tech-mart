@@ -4,6 +4,7 @@ import { auth, fs } from "../../Auth/firebaseConfig";
 import { GetCurrentUser } from "../../Auth/GetCurrentUser";
 import Product from "../../Products/Product";
 import Products from "../../Products/Products";
+import Footer from "../Footer/Footer";
 import Search from "../Search/Search";
 
 function Home(props) {
@@ -22,8 +23,9 @@ function Home(props) {
           Products
         </h1>
       </div>
-     
+
       <Products getTotalCartAddedNumber={getTotalCartAddedNumber} />
+      <Footer />
     </>
   );
 }
