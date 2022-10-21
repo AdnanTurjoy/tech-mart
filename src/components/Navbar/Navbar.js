@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { cartContext, userContext } from "../../App";
-
+import {  HashLink as Link } from 'react-router-hash-link';
 import { auth } from "../../Auth/firebaseConfig";
 import { GetCurrentUser } from "../../Auth/GetCurrentUser";
-
+import { MdDashboard } from "react-icons/md";
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const user = GetCurrentUser();
@@ -33,7 +33,7 @@ function Navbar() {
       <div class="flex items-center flex-shrink-0 text-white mr-6">
         <Link
           to="/"
-          class=" text-5xl tracking-wider text-rose-800 font-semibold font "
+          class=" text-4xl tracking-wider text-rose-800 font-semibold font "
         >
           Tech Mart
         </Link>
@@ -73,7 +73,7 @@ function Navbar() {
             Contact
           </Link>
           <Link
-            to="/"
+            to="/#search"
             className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-rose-700"
           >
             Products
@@ -113,9 +113,14 @@ function Navbar() {
         {(user || loggedInUser.name) && (
           <>
             <div>
-              <Link className="navlink mr-3 text-black" to="/">
-                {user || loggedInUser.name}
+              <Link className="navlink hover:underline mr-3 text-black" to={"/dashboard/"+(user || loggedInUser.name)}>
+             
+               {user || loggedInUser.name}
               </Link>
+            </div>
+            <div>
+              <Link to={"/dashboard/"+(user || loggedInUser.name)}> <MdDashboard  className="mr-3 w-8 h-7 hover:text-rose-400"/></Link>
+           
             </div>
             <div className="cart-menu-btn">
               <Link to="/cart" role="button" className="relative flex">

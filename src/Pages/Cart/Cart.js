@@ -9,6 +9,11 @@ function Cart(props) {
   const { selectedCart } = useContext(cartContext);
   const [updateCart, setUpdateCart] = useState([]);
   const [shippingCostAdd, setShippingCostAdd] = useState(0);
+
+  // Borowser localStorage
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(updateCart));
+  }, [updateCart]);
   useEffect(() => {
     setUpdateCart(selectedCart);
   }, [selectedCart]);
@@ -28,7 +33,6 @@ function Cart(props) {
   const user = GetCurrentUser();
   return (
     <>
-    
       <div className="container mx-auto mt-10">
         <div>
           <h1 className="font-bold  text-4xl text-center uppercase p-3">

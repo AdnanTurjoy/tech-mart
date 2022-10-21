@@ -7,9 +7,8 @@ function Search({ handleSearch }) {
   }, [searchText]);
 
   return (
-    <div className=" container p-5 w-100 mx-auto">
+    <div className=" container p-5 w-100 mx-auto" id="search">
       <form>
-        
         <label
           for="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -50,7 +49,6 @@ function Search({ handleSearch }) {
           </button>
         </div>
       </form>
-      
     </div>
   );
 }

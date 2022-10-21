@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { FcLike } from "react-icons/fc";
 
 function Product({ products, addToCart }) {
-  return (
+
+  const [likedProduct, setLikedProduct] = useState([]);
+  useEffect(() => {
+    localStorage.setItem("LikedProducts", JSON.stringify(likedProduct));
+  }, [likedProduct]);
+  console.log(likedProduct);
+  
+  const handleLikedProduct = (like,ID, title) => {
+    const newLike = {
+      productId:ID,
+      productTitle: title,
+      like: like,
+    };
+    setLikedProduct([...likedProduct, newLike]);
     
+  };
+  
+  return (
     <div className="container gap-4 p-6 flex mx-auto flex-wrap justify-center">
-      
-       
       {products &&
         products.map((product, key) => {
           const { ID, title, description, category, image, price } = product;
@@ -15,14 +29,14 @@ function Product({ products, addToCart }) {
             <div
               key={ID}
               className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
+              data-aos="fade-up"
             >
               <Link
-              
                 to={"/product/" + ID}
                 state={{ title, price, description, image, category }}
               >
                 <img
-                  className="p-8 rounded-t-lg hover:-translate-y-1 hover:scale-110 h-30"
+                  className="p-8 rounded-t-lg"
                   src={image}
                   alt="product image"
                 />
@@ -38,6 +52,13 @@ function Product({ products, addToCart }) {
                   <span className="text-3xl pr-2 font-bold  text-gray-900 dark:text-white">
                     {price}৳
                   </span>
+                  <button
+                    className="text-2xl"
+                    onClick={() => handleLikedProduct(true,ID, title)}
+                  >
+                    {" "}
+                    <FcLike />
+                  </button>
 
                   <button
                     onClick={() => addToCart(product)}

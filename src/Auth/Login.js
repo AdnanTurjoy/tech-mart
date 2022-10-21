@@ -24,6 +24,7 @@ function Login(props) {
           name: displayName,
           email,
         }
+        // console.log(result.user);
         setLoggedInUser(signInGoogleUser);
         navigate("/");
         // ...
