@@ -53,25 +53,28 @@ function Navbar() {
           </svg>
         </button>
       </div>
-      <div className={"lg:flex flex-grow items-center" +
-              (navbarOpen ? " flex" : " hidden")}>
+      <div
+        className={
+          "lg:flex flex-grow items-center" + (navbarOpen ? " flex" : " hidden")
+        }
+      >
         <div class="text-sm lg:flex-grow">
           <Link
             to="/about"
-            class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-rose-700 mr-4"
+            className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-rose-700 mr-4 "
           >
             About
           </Link>
 
           <Link
             to="/contact"
-            class="block mt-4 mr-3 lg:inline-block lg:mt-0 text-black hover:text-rose-700"
+            className="block mt-4 mr-3 lg:inline-block lg:mt-0 text-black hover:text-rose-700 "
           >
             Contact
           </Link>
           <Link
             to="/"
-            class="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-rose-700"
+            className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-rose-700"
           >
             Products
           </Link>
@@ -91,7 +94,7 @@ function Navbar() {
             <div>
               <Link
                 to="/login"
-                className="ml-3 inline-block text-sm px-4 py-2 mr-3 leading-none border rounded text-rose-700 border-black hover:bg-rose-600 hover:text-white mt-4 lg:mt-0"
+                className="ml-3 inline-block text-sm px-4 py-2 mr-3 leading-none border rounded-full text-rose-700 border-black hover:bg-rose-600 hover:text-white mt-4 lg:mt-0"
               >
                 LOGIN
               </Link>
@@ -99,7 +102,7 @@ function Navbar() {
             <div>
               <Link
                 to="/signup"
-                className="ml-3 inline-block text-sm px-4 py-2 mr-3 leading-none border rounded text-rose-700 border-black hover:bg-rose-600 hover:text-white mt-4 lg:mt-0"
+                className="ml-3 inline-block text-sm px-4 py-2 mr-3 leading-none border rounded-full text-rose-700 border-black hover:bg-rose-600 hover:text-white mt-4 lg:mt-0"
               >
                 SIGN UP
               </Link>

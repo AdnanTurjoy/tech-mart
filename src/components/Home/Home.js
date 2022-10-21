@@ -7,6 +7,7 @@ import Products from "../../Products/Products";
 import Footer from "../Footer/Footer";
 
 import Search from "../Search/Search";
+import Banner from "./Banner";
 
 function Home(props) {
   const { setCartNumber } = useContext(cartContext);
@@ -19,8 +20,9 @@ function Home(props) {
   const user = GetCurrentUser();
   return (
     <>
+    <Banner/>
       <div>
-        <h1 className="font-bold  text-4xl text-center uppercase p-3">
+        <h1 className="font-bold text-gray-800 text-4xl text-center uppercase p-3">
           Products
         </h1>
       </div>

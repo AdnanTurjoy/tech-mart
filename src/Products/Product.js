@@ -29,7 +29,7 @@ function Product({ products, addToCart }) {
               </Link>
               <div className="px-5 pb-5">
                 <a href="#">
-                  <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                  <h5 className="text-xl font-semibold tracking-tight text-gray-800 dark:text-white">
                     {title}
                   </h5>
                 </a>
@@ -41,7 +41,7 @@ function Product({ products, addToCart }) {
 
                   <button
                     onClick={() => addToCart(product)}
-                    className=" bg-red-500 rounded-md hover:bg-red-600 px-4 py-1 text-sm text-white uppercase"
+                    className=" bg-red-500 rounded-full hover:bg-red-600 px-4 py-1 text-sm text-white uppercase"
                   >
                     Add to cart
                   </button>

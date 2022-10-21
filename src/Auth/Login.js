@@ -12,19 +12,20 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const provider = new GoogleAuthProvider();
  const [loggedInUser,setLoggedInUser] =useContext(userContext);
+
+
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const { displayName, email } = result.user;
         const signInGoogleUser={
           name: displayName,
           email,
         }
         setLoggedInUser(signInGoogleUser);
+        navigate("/");
         // ...
       })
       .catch((error) => {
@@ -38,6 +39,8 @@ function Login(props) {
         // ...
       });
   };
+
+
   const handleLogin = (e) => {
     e.preventDefault();
     auth
