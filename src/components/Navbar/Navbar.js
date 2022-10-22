@@ -22,7 +22,7 @@ function Navbar() {
       .then(() => {
         navigate("/");
         loggedInUser.name = "";
-        loggedInUser.email="";
+        loggedInUser.email=null;
       })
       .catch((error) => {
         // An error happened.
