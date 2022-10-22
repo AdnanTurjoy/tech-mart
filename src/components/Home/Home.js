@@ -4,6 +4,7 @@ import { auth, fs } from "../../Auth/firebaseConfig";
 import { GetCurrentUser } from "../../Auth/GetCurrentUser";
 import Product from "../../Products/Product";
 import Products from "../../Products/Products";
+import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
 
 import Search from "../Search/Search";
@@ -20,7 +21,7 @@ function Home(props) {
   const user = GetCurrentUser();
   return (
     <>
-    <Banner/>
+      <Banner />
       <div>
         <h1 className="font-bold text-gray-800 text-4xl text-center uppercase p-3">
           Products
@@ -28,8 +29,8 @@ function Home(props) {
       </div>
 
       <Products getTotalCartAddedNumber={getTotalCartAddedNumber} />
+      <Contact />
       <Footer />
-     
     </>
   );
 }

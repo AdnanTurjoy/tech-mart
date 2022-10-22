@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./Auth/Login";
 import SignUp from "./Auth/SignUp";
+import Contact from "./components/Contact/Contact";
 import Error from "./components/Error/Error";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
@@ -46,7 +47,7 @@ function App() {
                 </PrivateRoutes>
               }
             />
-
+            <Route path="/contact" element={<Contact />} />
             <Route path="/*" element={<Error />} />
           </Routes>
         </BrowserRouter>
