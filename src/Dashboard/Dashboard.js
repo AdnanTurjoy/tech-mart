@@ -28,7 +28,7 @@ function Dashboard(props) {
             likedItems.map((data) => {
               return (
                 <>
-                  <div className="items-center">
+                  <div className="items-center" key={data.id}>
             
                    <Link to={"/"}> <strong>{data.productTitle}</strong></Link>
                   </div>
@@ -60,7 +60,7 @@ function Dashboard(props) {
               cartItems.map((data) => {
                 return (
                   <>
-                    <tr>
+                    <tr key={data.ID}>
                       <td className="border border-l-0 px-4 py-2 text-center text-green-500">
                         <i className="fad fa-circle"></i>
                       </td>

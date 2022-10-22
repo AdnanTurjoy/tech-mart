@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { cartContext, userContext } from "../../App";
-import {  HashLink as Link } from 'react-router-hash-link';
+import { HashLink as Link } from "react-router-hash-link";
 import { auth } from "../../Auth/firebaseConfig";
 import { GetCurrentUser } from "../../Auth/GetCurrentUser";
-import { MdDashboard } from "react-icons/md";
+import { HiUserCircle } from "react-icons/hi";
 function Navbar() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const user = GetCurrentUser();
@@ -13,7 +13,7 @@ function Navbar() {
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
   const navigate = useNavigate();
 
-  console.log(user);
+  
   useEffect(() => {}, [user]);
 
   const handleLogOut = () => {
@@ -22,12 +22,13 @@ function Navbar() {
       .then(() => {
         navigate("/");
         loggedInUser.name = "";
+        loggedInUser.email="";
       })
       .catch((error) => {
         // An error happened.
       });
   };
-
+// console.log(loggedInUser);
   return (
     <nav class="flex items-center justify-between flex-wrap bg-white p-6 lg:sticky lg:top-0 shadow-md">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -113,14 +114,24 @@ function Navbar() {
         {(user || loggedInUser.name) && (
           <>
             <div>
-              <Link className="navlink hover:underline mr-3 text-black" to={"/dashboard/"+(user || loggedInUser.name)}>
-             
-               {user || loggedInUser.name}
+              <Link
+                className="navlink hover:underline mr-3 text-black"
+                to={"/dashboard/" + (user || loggedInUser.name)}
+              >
+                {user || loggedInUser.name}
               </Link>
             </div>
             <div>
-              <Link to={"/dashboard/"+(user || loggedInUser.name)}> <MdDashboard  className="mr-3 w-8 h-7 hover:text-rose-400"/></Link>
-           
+               <Link to={"/dashboard/" + (user || loggedInUser.name)}> 
+                {/* <MdDashboard className="mr-3 w-8 h-7 hover:text-rose-400" /> */}
+                <div className="mr-3" >
+                  {loggedInUser.photoURL ?  <img src={loggedInUser.photoURL} className="w-8 rounded-full hover:border-spacing-2  ring-white-300 hover:ring-2" alt="" />:
+                   <HiUserCircle className="w-8 h-8"/>
+                  }
+               
+                </div> 
+               
+              </Link> 
             </div>
             <div className="cart-menu-btn">
               <Link to="/cart" role="button" className="relative flex">

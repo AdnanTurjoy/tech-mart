@@ -21,7 +21,7 @@ function App() {
   const getSelectedCart = (cart) => {
     setSelelctedCart(cart);
   };
- 
+
   return (
     <userContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <cartContext.Provider
@@ -33,11 +33,20 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            {/* <Route element={<PrivateRoutes loggedInUser={loggedInUser} />}> */}
+            {/* <Route element={<PrivateRoutes  />}> */}
             <Route path="/product/:id" element={<SingleProduct />} />
-            <Route path="/cart" element={<Cart />} />
+            {/* <Route path="/cart" element={<Cart />} /> */}
             <Route path="/dashboard/:name" element={<Dashboard />} />
             {/* </Route> */}
+            <Route
+              path="/cart"
+              element={
+                <PrivateRoutes loggedInUser={loggedInUser}>
+                  <Cart />
+                </PrivateRoutes>
+              }
+            />
+
             <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>

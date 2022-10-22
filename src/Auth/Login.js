@@ -19,12 +19,14 @@ function Login(props) {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        const { displayName, email } = result.user;
+        const { displayName, email,photoURL } = result.user;
+        //console.log(result.user);
         const signInGoogleUser={
           name: displayName,
           email,
+          photoURL,
         }
-        // console.log(result.user);
+        
         setLoggedInUser(signInGoogleUser);
         navigate("/");
         // ...
@@ -49,7 +51,12 @@ function Login(props) {
       .then(() => {
         setEmail("");
         setPassword("");
-
+        const signInUser={
+          name:"",
+          email:email,
+          photoURL:"",
+        }
+        setLoggedInUser(signInUser);
         navigate("/");
       })
       .catch((error) => console.log(error.message));

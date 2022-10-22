@@ -8,7 +8,7 @@ function Product({ products, addToCart }) {
   useEffect(() => {
     localStorage.setItem("LikedProducts", JSON.stringify(likedProduct));
   }, [likedProduct]);
-  console.log(likedProduct);
+
   
   const handleLikedProduct = (like,ID, title) => {
     const newLike = {

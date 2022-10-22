@@ -75,7 +75,7 @@ function Products({ getTotalCartAddedNumber }) {
       {category && 
      
        category.map((data)=>{
-        return <button onClick={()=>handleCategory(data)} className="px-3  hover:bg-slate-700 hover:underline hover:text-white hover:rounded-md"># {data}</button> 
+        return <button key={data.ID} onClick={()=>handleCategory(data)} className="px-3  hover:bg-slate-700 hover:underline hover:text-white hover:rounded-md"># {data}</button> 
        })
 
       }
