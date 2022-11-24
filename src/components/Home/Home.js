@@ -12,6 +12,9 @@ import Banner from "./Banner";
 
 function Home(props) {
   const { setCartNumber } = useContext(cartContext);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const getTotalCartAddedNumber = (number) => {
     setCartNumber(number);

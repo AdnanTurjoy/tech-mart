@@ -1,34 +1,45 @@
 import { Link } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
-import { cartContext } from "../../App";
+
 import toast, { Toaster } from "react-hot-toast";
 
 import { GetCurrentUser } from "../../Auth/GetCurrentUser";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../redux/cartSlice";
 
 function Cart(props) {
-  const { selectedCart } = useContext(cartContext);
-  const [updateCart, setUpdateCart] = useState([]);
+  let total = 0;
+  const { itemsList, totalQuantity } = useSelector((state) => {
+    console.log(state);
+    return state.cart;
+  });
+  const dispatch = useDispatch();
+  const incrementCartItem = (name, id, price) => {
+    dispatch(
+      cartActions.addToCart({
+        name,
+        id,
+        price,
+      })
+    );
+  };
+  const decrementCartItems = (id) => {
+    dispatch(cartActions.removeFromCart(id));
+  };
+
   const [shippingCostAdd, setShippingCostAdd] = useState(0);
 
   // Borowser localStorage
   useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(updateCart));
-  }, [updateCart]);
-  useEffect(() => {
-    setUpdateCart(selectedCart);
-  }, [selectedCart]);
+    localStorage.setItem("items", JSON.stringify(itemsList));
+  }, [itemsList]);
 
-  const deleteCart = (id) => {
-    console.log(id);
-    setUpdateCart(updateCart.filter((data) => data.ID !== id));
-  };
-  const totalPrice = updateCart.reduce(
-    (total, product) => total + parseInt(product.price),
-    0
-  );
+  itemsList.forEach((item) => {
+    total += item.totalPrice;
+  });
   const handleApply = () => {
     toast.success("Successfully Apply to Shipping!");
-    setShippingCostAdd(totalPrice + 100);
+    setShippingCostAdd(total + 100);
   };
   const user = GetCurrentUser();
   return (
@@ -47,51 +58,70 @@ function Cart(props) {
           <div className="w-1/2 bg-white px-10 py-10">
             <div className="flex justify-between border-b pb-8">
               <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-              <h2 className="font-semibold text-2xl">
-                {updateCart.length} Items
-              </h2>
+              <h2 className="font-semibold text-2xl">{totalQuantity} Items</h2>
             </div>
             <div className="flex mt-10 mb-5">
               <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
                 Product Details
               </h3>
-
+              <h3 className="font-semibold justify-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                Quantity
+              </h3>
               <h3 className="font-semibold justify-center text-gray-600 text-xs uppercase w-1/5 text-center">
                 Price
               </h3>
             </div>
-            {updateCart &&
-              updateCart.map((product, key) => {
-                const { ID, title, description, category, image, price } =
-                  product;
+            {itemsList &&
+              itemsList.map((product, key) => {
+                const {
+                  id,
+                  name,
+                  description,
+                  category,
+                  quantity,
+                  image,
+                  price,
+                  totalPrice,
+                } = product;
                 //   console.log(image);
                 return (
-                  <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5" key={ID}>
+                  <div
+                    className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
+                    key={id}
+                  >
                     <div className="flex w-2/5">
                       <div className="w-20">
                         <img className="h-24" src={image} alt="" />
                       </div>
                       <div className="flex flex-col justify-between ml-4 flex-grow">
-                        <span className="font-bold text-sm">{title}</span>
+                        <span className="font-bold text-sm">{name}</span>
+                        <button
+                          onClick={() => decrementCartItems(id)}
+                          className="bg-gray-300 w-10"
+                        >
+                          -
+                        </button>
+                        <button
+                          onClick={() => incrementCartItem(name, id, price)}
+                          className="bg-gray-300 w-10"
+                        >
+                          +
+                        </button>
                       </div>
                     </div>
-
+                    <span className="text-center font-semibold text-sm">
+                      x{quantity}
+                    </span>
                     <span className="text-center w-1/5 font-semibold text-sm">
                       {price}
                     </span>
-                    <button
-                      onClick={() => deleteCart(ID)}
-                      className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                    >
-                      Remove
-                    </button>
+                    <span className="text-center w-1/5 font-semibold text-sm">
+                      {totalPrice}
+                    </span>
                   </div>
                 );
               })}
-            <Link
-              to="/"
-              class="flex font-semibold text-rose-600 text-sm mt-10"
-            >
+            <Link to="/" class="flex font-semibold text-rose-600 text-sm mt-10">
               <svg
                 class="fill-current mr-2 text-rose-600 w-4"
                 viewBox="0 0 448 512"
@@ -108,9 +138,9 @@ function Cart(props) {
             </h1>
             <div className="flex justify-between mt-10 mb-5">
               <span className="font-semibold text-sm uppercase">
-                Total Items: {updateCart.length}
+                Total Items: {totalQuantity}
               </span>
-              <span className="font-semibold text-sm">{totalPrice}</span>
+              <span className="font-semibold text-sm">{total}</span>
             </div>
             <div>
               <label className="font-medium inline-block mb-3 text-sm uppercase">

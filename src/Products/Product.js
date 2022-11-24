@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FcLike } from "react-icons/fc";
-
-function Product({ products, addToCart }) {
-
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../redux/cartSlice";
+import toast, { Toaster } from "react-hot-toast";
+function Product({ products }) {
   const [likedProduct, setLikedProduct] = useState([]);
   useEffect(() => {
     localStorage.setItem("LikedProducts", JSON.stringify(likedProduct));
   }, [likedProduct]);
+  //
 
-  
-  const handleLikedProduct = (like,ID, title) => {
+ 
+
+  const handleLikedProduct = (like, ID, title) => {
     const newLike = {
-      productId:ID,
+      productId: ID,
       productTitle: title,
       like: like,
     };
     setLikedProduct([...likedProduct, newLike]);
-    
   };
-  
+  const dispatch = useDispatch();
+  const addToCart = (ID, title, description, category, image, price) => {
+    const convertPrice = Number(price);
+    dispatch(
+      cartActions.addToCart({
+        name: title,
+        id: ID,
+        price: convertPrice,
+        image: image,
+      })
+    );
+  };
+
   return (
     <div className="container gap-4 p-6 flex mx-auto flex-wrap justify-center">
       {products &&
@@ -54,14 +68,16 @@ function Product({ products, addToCart }) {
                   </span>
                   <button
                     className="text-2xl"
-                    onClick={() => handleLikedProduct(true,ID, title)}
+                    onClick={() => handleLikedProduct(true, ID, title)}
                   >
                     {" "}
                     <FcLike />
                   </button>
 
                   <button
-                    onClick={() => addToCart(product)}
+                    onClick={() =>
+                      addToCart(ID, title, description, category, image, price)
+                    }
                     className=" bg-red-500 rounded-full hover:bg-red-600 px-4 py-1 text-sm text-white uppercase"
                   >
                     Add to cart
@@ -71,6 +87,9 @@ function Product({ products, addToCart }) {
             </div>
           );
         })}
+      <div>
+     
+      </div>
     </div>
   );
 }
