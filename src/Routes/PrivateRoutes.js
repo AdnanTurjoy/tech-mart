@@ -8,7 +8,7 @@ const PrivateRoutes = ({ loggedInUser, children }) => {
   const location = useLocation();
   const user = GetCurrentUser();
   console.log(user || loggedInUser.name);
-  return !loggedInUser.email ? children : children;
+  return !loggedInUser.email ? <Navigate to="/login" /> : children;
 };
-// <Navigate to="/login" />
+
 export default PrivateRoutes;
